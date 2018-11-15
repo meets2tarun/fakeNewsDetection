@@ -13,16 +13,16 @@ const NEWS_API_KEY = 'ab4bfafd849845ae8b1cd553121a229e';
 
 const query = 'UNESCO calls Narendra Modi the best prime minister in the world';
 const image = require('./imageText');
-const fileName = 'aids-pic.png';
+const fileName = 'movie-fake.png';
+// const fileName = 'police-death.png';
 
 const translate = require('./translate');
 const sentiment = require('./sentiment');
 
+
 image.getImage(fileName).then(image => {
   const translatedText = translate.translateText(image).then(text => {
-    // console.log(text);
-    // console.log(`image sentiment: ${sentiment(text)}`);
-    sentiment(text).then(result => console.log(`text:\n${image}\nsentiment:\n${result}\n`));
+    sentiment(text).then(result => console.log(`original:\n${image}\translated:\n${text}\nsentiment:\n${JSON.stringify(result)}`));
   });
 });
 
@@ -83,7 +83,8 @@ const queryCustomAPI = async (query) => {
 queryCustomAPI(query).then(list => {
   list.map(source => {
     sentiment(source).then(result => {
-      console.log(result + '\n');
+      console.log(`text:\n${source}\nsentiment:\n${result}\n`);
+      // console.log(result + '\n');
     });
   })
 });
