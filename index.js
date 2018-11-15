@@ -13,7 +13,18 @@ const NEWS_API_KEY = 'ab4bfafd849845ae8b1cd553121a229e';
 
 const query = 'UNESCO calls Narendra Modi the best prime minister in the world';
 const image = require('./imageText');
-image.getImage().then(image => console.log(image));
+const fileName = 'aids-pic.png';
+
+const translate = require('./translate');
+const sentiment = require('./sentiment');
+
+image.getImage(fileName).then(image => {
+  const translatedText = translate.translateText(image).then(text => {
+    // console.log(text);
+    // console.log(`image sentiment: ${sentiment(text)}`);
+    sentiment(text).then(result => console.log(`text:\n${image}\nsentiment:\n${result}\n`));
+  });
+});
 
 // https://newsapi.org/v2/everything?q=unesco%20bengali&from=2018-10-14&sortBy=publishedAt&apiKey=ab4bfafd849845ae8b1cd553121a229e
 
@@ -68,4 +79,11 @@ const queryCustomAPI = async (query) => {
   .catch(err => console.log(err));
 }
 
-queryCustomAPI(query).then(list => console.log(list));
+// queryCustomAPI(query).then(list => console.log(list));
+queryCustomAPI(query).then(list => {
+  list.map(source => {
+    sentiment(source).then(result => {
+      console.log(result + '\n');
+    });
+  })
+});

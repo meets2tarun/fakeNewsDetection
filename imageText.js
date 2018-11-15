@@ -8,9 +8,8 @@ const client = new vision.ImageAnnotatorClient();
  * TODO(developer): Uncomment the following line before running the sample.
  */
 // const fileName = 'Local image file, e.g. /path/to/image.png';
-const fileName = 'movie-fake.png';
 
-const getImage = async () => {
+const getImage = async (fileName) => {
 // Read a local image as a text document
 return await client
   .documentTextDetection(fileName)

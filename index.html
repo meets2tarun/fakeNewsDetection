@@ -1,0 +1,28 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <!-- <script type="text/javascript" src="index.js"></script> -->
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
+        <form>
+          <input id="text-box">
+          <input type="submit" value="Submit">
+        </form>
+        <script>
+          const text = document.getElementById("text-box").value;
+          $.fn.stars = function() {
+            return $(this).each(function() {
+                $(this).html($('<span />').width(Math.max(-1, (Math.min(1, parseFloat($(this).html())))) * 80));
+            });
+          }
+          $(function() {
+            $('span.stars').stars();
+          });
+        </script>
+        
+        <span class="stars">0.3</span>
+    </body>
+</html>
